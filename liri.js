@@ -6,8 +6,8 @@ var axios = require("axios")
 var spotify = require("node-spotify-api")
 var moment = require ("moment")
 
-//Access Spotify
-var spotify = new Spotify(keys.spotify);
+// //Access Spotify
+// var spotify = new Spotify(keys.spotify);
 
 //movie search
 
