@@ -6,7 +6,7 @@ var axios = require("axios")
 var spotify = require("node-spotify-api")
 var moment = require ("moment")
 
-// //Access Spotify
+// // //Access Spotify
 // var spotify = new Spotify(keys.spotify);
 
 //movie search
@@ -15,12 +15,18 @@ var movieName = process.argv[2];
 
 var queryUrlMov = "http://www.omdbapi.com/?t=" + movieName + "&y=&plot=short&apikey=1fb3acc8";
 
-console.log(queryUrlMov);
 
 
 axios.get(queryUrlMov).then(
     function(response){
-        console.log("The movie's release date is: " + response.data.Released);
+      console.log("Title: " + response.data.Title);  
+      console.log("Release Year: " + response.data.Released);
+      console.log("IMDB Rating: " + response.data.imdbRating);
+      console.log("Rotton Tomatoes rating: " + response.data.Ratings[1].Value);
+      console.log("Country produced: " + response.data.Country);
+      console.log("Language: " + response.data.Language);
+      console.log("Plot: " + response.data.Plot);
+      console.log("Actors: " + response.data.Actors);
     }
 )
 .catch(function(error){
