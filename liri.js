@@ -43,6 +43,7 @@ function movieData(movieName){
 var queryUrlMov = "http://www.omdbapi.com/?t=" + movieName + "&y=&plot=short&apikey=1fb3acc8";
 axios.get(queryUrlMov).then(
     function(response){
+      if (response.data.Title != undefined){
       console.log("Title: " + response.data.Title);  
       console.log("Release Year: " + response.data.Released);
       console.log("IMDB Rating: " + response.data.imdbRating);
@@ -51,31 +52,22 @@ axios.get(queryUrlMov).then(
       console.log("Language: " + response.data.Language);
       console.log("Plot: " + response.data.Plot);
       console.log("Actors: " + response.data.Actors);
+      } 
+      else {
+        movieData("Mr. Nobody");
+      }
     }
-)
+) .catch(function(error){
+  console.log(error);
+  console.log("No Results");
   }
-  
+)};
 
 
 
 
-// .catch(function(error){
-//     if (error.response) {
 
-//         console.log("---------------Data---------------");
-//         console.log(error.response.data);
-//         console.log("---------------Status---------------");
-//         console.log(error.response.status);
-//         console.log("---------------Status---------------");
-//         console.log(error.response.headers);
-//       } else if (error.request) {
 
-//         console.log(error.request);
-//       } else {
-//         console.log("Error", error.message);
-//       }
-//       console.log(error.config);
-//     });
 
 // // //Access Spotify
 // var spotify = new Spotify(keys.spotify);
