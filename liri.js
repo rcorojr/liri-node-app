@@ -3,7 +3,7 @@
 var dotenv = require('dotenv').config()
 var keys = require("./keys.js");
 var axios = require("axios")
-var spotify = require("node-spotify-api")
+var Spotify = require("node-spotify-api")
 var moment = require ("moment")
 var keys = require("./keys")
 
@@ -70,16 +70,28 @@ axios.get(queryUrlMov).then(
 
 
 // // //Access Spotify
-// var spotify = new Spotify(keys.spotify);
-// function spotifyData(inputParameter) {
-//   if (inputParameter === undefined) {
-//       inputParameter = "The Sign"; //default Song
-//   }
-//   spotify.search({ type: 'track', query: 'All the Small Things' }, function(err, data) {
-//     if (err) {
-//       return console.log('Error occurred: ' + err);
-//     }
-   
-//   console.log(data); 
-//   });
-// } 
+var spotify = new Spotify(keys.spotify);
+function spotifyData(userInput) {
+  if (userInput === undefined) {
+      userInput === "The Sign"; //default Song
+  }
+} 
+
+spotify
+  .search({ type: 'track', query: userInput })
+  .then(function(response) {
+    console.log("Artist: " + response.tracks.items[0].artists[0].name);
+    console.log("Track: " + response.tracks.items[0].name);
+    console.log("Preview URL: " + response.tracks.items[0].preview_url);
+    console.log("Album: " + response.tracks.items[0].album.name);
+  })
+  .catch(function(err) {
+    console.log(err);
+  });
+
+
+
+//BandsInTown Search
+
+function concertData(artist)
+var queryUrlBands = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp"
