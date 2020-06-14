@@ -7,7 +7,7 @@ var spotify = require("node-spotify-api")
 var moment = require ("moment")
 var keys = require("./keys")
 
-var userTopic = "movie-this";
+var userTopic = process.argv[2];
 var userInput = process.argv[3];
 
 
@@ -38,23 +38,13 @@ switch (userTopic){
 
 
 
-function movieData(){
-  var movieName = "";
-  for (var i = 3; i < userInput.length; i++){
-      if (i > 3 && i < userInput.length){
-          movieName = movieName + "+" + userInput[i];
-      }
-      else{
-          movieName += userInput[i];
-      }
-  }
-}
+function movieData(movieName){
 
 var queryUrlMov = "http://www.omdbapi.com/?t=" + movieName + "&y=&plot=short&apikey=1fb3acc8";
 axios.get(queryUrlMov).then(
     function(response){
       console.log("Title: " + response.data.Title);  
-      console.log("Release Year: " + responseswitch .data.Released);
+      console.log("Release Year: " + response.data.Released);
       console.log("IMDB Rating: " + response.data.imdbRating);
       console.log("Rotton Tomatoes rating: " + response.data.Ratings[1].Value);
       console.log("Country produced: " + response.data.Country);
@@ -63,39 +53,41 @@ axios.get(queryUrlMov).then(
       console.log("Actors: " + response.data.Actors);
     }
 )
+  }
+  
 
 
 
 
-.catch(function(error){
-    if (error.response) {
+// .catch(function(error){
+//     if (error.response) {
 
-        console.log("---------------Data---------------");
-        console.log(error.response.data);
-        console.log("---------------Status---------------");
-        console.log(error.response.status);
-        console.log("---------------Status---------------");
-        console.log(error.response.headers);
-      } else if (error.request) {
+//         console.log("---------------Data---------------");
+//         console.log(error.response.data);
+//         console.log("---------------Status---------------");
+//         console.log(error.response.status);
+//         console.log("---------------Status---------------");
+//         console.log(error.response.headers);
+//       } else if (error.request) {
 
-        console.log(error.request);
-      } else {
-        console.log("Error", error.message);
-      }
-      console.log(error.config);
-    });
+//         console.log(error.request);
+//       } else {
+//         console.log("Error", error.message);
+//       }
+//       console.log(error.config);
+//     });
 
 // // //Access Spotify
-var spotify = new Spotify(keys.spotify);
-function spotifyData(inputParameter) {
-  if (inputParameter === undefined) {
-      inputParameter = "The Sign"; //default Song
-  }
-  spotify.search({ type: 'track', query: 'All the Small Things' }, function(err, data) {
-    if (err) {
-      return console.log('Error occurred: ' + err);
-    }
+// var spotify = new Spotify(keys.spotify);
+// function spotifyData(inputParameter) {
+//   if (inputParameter === undefined) {
+//       inputParameter = "The Sign"; //default Song
+//   }
+//   spotify.search({ type: 'track', query: 'All the Small Things' }, function(err, data) {
+//     if (err) {
+//       return console.log('Error occurred: ' + err);
+//     }
    
-  console.log(data); 
-  });
-} 
+//   console.log(data); 
+//   });
+// } 
