@@ -5,22 +5,38 @@ var keys = require("./keys.js");
 var axios = require("axios")
 var spotify = require("node-spotify-api")
 var moment = require ("moment")
+var keys = require("./keys")
 
-var userInput = process.argv;
-var userTopic = process.argv[2];
+var userTopic = "movie-this";
+var userInput = process.argv[3];
+
 
 //topic selector
 switch (userTopic){
-  case "movie-this":
-    movieData();
+
+  case "concert-this":
+    concertData(userInput);
     break;
-}
+
+    case "spotify-this-song":
+    spotifyData(userInput);
+    break;
+
+  case "movie-this":
+    movieData(userInput);
+    break;
+
+  case "do-what-it-says":
+    doData(userInput);
+    break;
+
+};
 
 //movie search
 
 // var movieName = process.argv[2];
 
-var queryUrlMov = "http://www.omdbapi.com/?t=" + movieName + "&y=&plot=short&apikey=1fb3acc8";
+
 
 function movieData(){
   var movieName = "";
@@ -34,6 +50,7 @@ function movieData(){
   }
 }
 
+var queryUrlMov = "http://www.omdbapi.com/?t=" + movieName + "&y=&plot=short&apikey=1fb3acc8";
 axios.get(queryUrlMov).then(
     function(response){
       console.log("Title: " + response.data.Title);  
@@ -47,8 +64,6 @@ axios.get(queryUrlMov).then(
     }
 )
 
-// // //Access Spotify
-// var spotify = new Spotify(keys.spotify);
 
 
 
@@ -69,3 +84,18 @@ axios.get(queryUrlMov).then(
       }
       console.log(error.config);
     });
+
+// // //Access Spotify
+var spotify = new Spotify(keys.spotify);
+function spotifyData(inputParameter) {
+  if (inputParameter === undefined) {
+      inputParameter = "The Sign"; //default Song
+  }
+  spotify.search({ type: 'track', query: 'All the Small Things' }, function(err, data) {
+    if (err) {
+      return console.log('Error occurred: ' + err);
+    }
+   
+  console.log(data); 
+  });
+} 
