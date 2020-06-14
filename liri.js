@@ -2,10 +2,12 @@
 
 var dotenv = require('dotenv').config()
 var keys = require("./keys.js");
-var axios = require("axios")
-var Spotify = require("node-spotify-api")
-var moment = require ("moment")
-var keys = require("./keys")
+var axios = require("axios");
+var Spotify = require("node-spotify-api");
+var moment = require ("moment");
+var keys = require("./keys");
+var fs = require("fs");
+
 
 var userTopic = process.argv[2];
 var userInput = process.argv[3];
@@ -91,3 +93,13 @@ axios.get(queryUrlBands).then(
     console.log("Date: " + moment(response.data[0].datetime).format("MM/DD/YYYY"));
   }
 )};
+
+function doData(userInput){
+  fs.readFile('random.txt', 'utf8', function(err, data){
+		if (err){ 
+			return console.log(err);
+		}
+        var dataArr = data.split(',');
+        userInput(dataArr[0], dataArr[1]);
+	});
+}
