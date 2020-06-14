@@ -34,10 +34,6 @@ switch (userTopic){
 
 //movie search
 
-// var movieName = process.argv[2];
-
-
-
 function movieData(movieName){
 
 var queryUrlMov = "http://www.omdbapi.com/?t=" + movieName + "&y=&plot=short&apikey=1fb3acc8";
@@ -64,21 +60,11 @@ axios.get(queryUrlMov).then(
 )};
 
 
-
-
-
-
-
 // // //Access Spotify
-var spotify = new Spotify(keys.spotify);
-function spotifyData(userInput) {
-  if (userInput === undefined) {
-      userInput === "The Sign"; //default Song
-  }
-} 
 
-spotify
-  .search({ type: 'track', query: userInput })
+function spotifyData(userInput) {
+  var spotify = new Spotify(keys.spotify);
+  spotify.search({ type: 'track', query: userInput })
   .then(function(response) {
     console.log("Artist: " + response.tracks.items[0].artists[0].name);
     console.log("Track: " + response.tracks.items[0].name);
@@ -88,6 +74,9 @@ spotify
   .catch(function(err) {
     console.log(err);
   });
+} 
+
+
 
 
 
