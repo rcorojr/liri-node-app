@@ -93,5 +93,12 @@ spotify
 
 //BandsInTown Search
 
-function concertData(artist)
+function concertData(artist){
 var queryUrlBands = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp"
+axios.get(queryUrlBands).then(
+  function(response) {
+    console.log("Venue: " + response.data[0].venue.name);
+    console.log("Location: " + response.data[0].venue.city);
+    console.log("Date: " + moment(response.data[0].datetime).format("MM/DD/YYYY"));
+  }
+)};
